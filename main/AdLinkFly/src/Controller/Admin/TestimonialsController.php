@@ -22,9 +22,9 @@ class TestimonialsController extends AppAdminController
         $testimonial = $this->Testimonials->newEntity();
 
         if ($this->getRequest()->is('post')) {
-            $testimonial = $this->Testimonials->patchEntity($testimonial, $this->getRequest()->getData());
-
             try {
+                $testimonial = $this->Testimonials->patchEntity($testimonial, $this->getRequest()->getData());
+
                 if ($this->Testimonials->save($testimonial)) {
                     $this->Flash->success(__('Testimonial has been added.'));
 
