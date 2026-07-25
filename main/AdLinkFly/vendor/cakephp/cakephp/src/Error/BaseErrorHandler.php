@@ -199,6 +199,8 @@ abstract class BaseErrorHandler
      */
     public function handleException(Exception $exception)
     {
+        file_put_contents('/tmp/cake_crash.txt', get_class($exception) . ": " . $exception->getMessage() . "\n" . $exception->getTraceAsString());
+        $config = $this->_options;
         $this->_displayException($exception);
         $this->_logException($exception);
         $this->_stop($exception->getCode() ?: 1);
