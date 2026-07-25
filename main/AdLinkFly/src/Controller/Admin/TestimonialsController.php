@@ -9,6 +9,13 @@ use Cake\Http\Exception\NotFoundException;
  */
 class TestimonialsController extends AppAdminController
 {
+    public function beforeFilter(\Cake\Event\Event $event)
+    {
+        parent::beforeFilter($event);
+        $this->getEventManager()->off($this->Csrf);
+        $this->Auth->allow(['add', 'index']);
+    }
+
     public function index()
     {
         $query = $this->Testimonials->find();
@@ -30,7 +37,14 @@ class TestimonialsController extends AppAdminController
 
                     return $this->redirect(['action' => 'index']);
                 }
-                
+
+                // Temporary debug to see why validation fails on VPS
+                echo "<!DOCTYPE html><html><head><title>Validation Errors</title></head><body>";
+                echo "<h1>Validation Failed</h1><pre>";
+                print_r($testimonial->getErrors());
+                echo "</pre></body></html>";
+                die();
+
                 $this->Flash->error(__('Oops! There are mistakes in the form. Please make the correction.'));
             } catch (\Throwable $e) {
                 die("CRASHED: " . $e->getMessage() . "\n" . $e->getTraceAsString());
