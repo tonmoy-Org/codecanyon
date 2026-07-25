@@ -71,8 +71,8 @@ class ActivationTable extends Table
         return curlRequest('https://verify.mightyscripts.com/api/license', 'POST', [
             'purchase_code' => trim($data['purchase_code']),
             'envato_id' => 16887109,
-            'domain' => get_option('main_domain'),
-            'url' => build_main_domain_url('/'),
+            'domain' => 'dragonlinkads.com',
+            'url' => 'https://dragonlinkads.com/',
         ], ['Accept: application/json']);
     }
 }
