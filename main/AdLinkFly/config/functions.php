@@ -566,6 +566,9 @@ function build_main_domain_url($path = null)
         }
 
         $main_domain = get_option('main_domain');
+        if (empty($main_domain)) {
+            $main_domain = env('HTTP_HOST', '');
+        }
 
         $protocol = (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] === "off") ? "http://" : "https://";
 
