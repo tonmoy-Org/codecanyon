@@ -1,0 +1,5 @@
+2026-07-25 15:19:30 Warning: Warning (2): Undefined array key "database" in [E:\codecanyon\main\AdLinkFly\vendor\cakephp\migrations\src\ConfigurationTrait.php, line 102]
+
+
+2026-07-25 15:19:31 Error: [InvalidArgumentException] There was a problem connecting to the database: SQLSTATE[HY000] [1045] Access denied for user ''@'localhost' (using password: YES) in E:\codecanyon\main\AdLinkFly\vendor\robmorgan\phinx\src\Phinx\Db\Adapter\PdoAdapter.php on line 82
+Caused by: [PDOException] SQLSTATE[HY000] [1045] Access denied for user ''@'localhost' (using password: YES) in E:\codecanyon\main\AdLinkFly\vendor\robmorgan\phinx\src\Phinx\Db\Adapter\PdoAdapter.php on line 79
