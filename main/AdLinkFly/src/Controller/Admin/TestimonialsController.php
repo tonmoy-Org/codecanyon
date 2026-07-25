@@ -22,7 +22,6 @@ class TestimonialsController extends AppAdminController
         $testimonial = $this->Testimonials->newEntity();
 
         if ($this->getRequest()->is('post')) {
-            die("FORM DATA: <pre>" . print_r($this->getRequest()->getData(), true) . "</pre>");
             try {
                 $testimonial = $this->Testimonials->patchEntity($testimonial, $this->getRequest()->getData());
 
