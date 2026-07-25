@@ -24,12 +24,16 @@ class TestimonialsController extends AppAdminController
         if ($this->getRequest()->is('post')) {
             $testimonial = $this->Testimonials->patchEntity($testimonial, $this->getRequest()->getData());
 
-            if ($this->Testimonials->save($testimonial)) {
-                $this->Flash->success(__('Testimonial has been added.'));
+            try {
+                if ($this->Testimonials->save($testimonial)) {
+                    $this->Flash->success(__('Testimonial has been added.'));
 
-                return $this->redirect(['action' => 'index']);
+                    return $this->redirect(['action' => 'index']);
+                }
+                $this->Flash->error(__('Oops! There are mistakes in the form. Please make the correction.'));
+            } catch (\Exception $e) {
+                die("CRASHED: " . $e->getMessage() . "\n" . $e->getTraceAsString());
             }
-            $this->Flash->error(__('Oops! There are mistakes in the form. Please make the correction.'));
         }
         $this->set('testimonial', $testimonial);
     }
