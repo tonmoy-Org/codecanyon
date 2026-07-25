@@ -31,7 +31,7 @@ class TestimonialsController extends AppAdminController
                     return $this->redirect(['action' => 'index']);
                 }
                 $this->Flash->error(__('Oops! There are mistakes in the form. Please make the correction.'));
-            } catch (\Exception $e) {
+            } catch (\Throwable $e) {
                 die("CRASHED: " . $e->getMessage() . "\n" . $e->getTraceAsString());
             }
         }
