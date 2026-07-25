@@ -30,6 +30,10 @@ class TestimonialsController extends AppAdminController
 
                     return $this->redirect(['action' => 'index']);
                 }
+                
+                // Dump validation errors to screen before view crashes
+                die("VALIDATION FAILED: <pre>" . print_r($testimonial->getErrors(), true) . "</pre>");
+                
                 $this->Flash->error(__('Oops! There are mistakes in the form. Please make the correction.'));
             } catch (\Throwable $e) {
                 die("CRASHED: " . $e->getMessage() . "\n" . $e->getTraceAsString());
