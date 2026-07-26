@@ -246,6 +246,18 @@ $statuses = [
                                     <?php if ($user->status === 2) : ?>
                                         <li>
                                             <?= $this->Html->link(
+                                                __('Activate (Approve)'),
+                                                [
+                                                    'action' => 'activate',
+                                                    $user->id,
+                                                    'token' => $this->request->getParam('_csrfToken'),
+                                                ],
+                                                ['confirm' => __('Are you sure?')]
+                                            );
+                                            ?>
+                                        </li>
+                                        <li>
+                                            <?= $this->Html->link(
                                                 __('Resend Activation Email'),
                                                 [
                                                     'action' => 'resendActivation',

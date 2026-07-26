@@ -219,6 +219,10 @@ $withdrawal_methods = array_column_polyfill(get_withdrawal_methods(), 'name', 'i
                                     <td><?= __('Phone Number') ?></td>
                                     <td><?= h($user->phone_number) ?></td>
                                 </tr>
+                                <tr>
+                                    <td><?= __('WhatsApp Number') ?></td>
+                                    <td><?= h($user->whatsapp_number) ?></td>
+                                </tr>
                             </table>
                         </div>
                     </div>
@@ -257,6 +261,19 @@ $withdrawal_methods = array_column_polyfill(get_withdrawal_methods(), 'name', 'i
         </div>
 
         <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->id], ['class' => 'btn btn-primary']); ?>
+
+        <?php if ($user->status === 2) : ?>
+            <?= $this->Html->link(
+                __('Activate (Approve)'),
+                [
+                    'action' => 'activate',
+                    $user->id,
+                    'token' => $this->request->getParam('_csrfToken'),
+                ],
+                ['confirm' => __('Are you sure?'), 'class' => 'btn btn-success']
+            );
+            ?>
+        <?php endif; ?>
 
         <?= $this->Html->link(
             __('Deactivate'),

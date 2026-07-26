@@ -90,6 +90,13 @@ $this->assign('content_title', __('Edit User #{0}', $user->id));
         ?>
 
         <?=
+        $this->Form->control('whatsapp_number', [
+            'label' => __('WhatsApp Number'),
+            'class' => 'form-control',
+        ])
+        ?>
+
+        <?=
         $this->Form->control('referred_by', [
             'label' => __('Referred By'),
             'type' => 'number',

@@ -106,6 +106,14 @@ $this->assign('content_title', __('Profile'));
                 ])
                 ?>
             </div>
+            <div class="col-sm-6">
+                <?=
+                $this->Form->control('whatsapp_number', [
+                    'label' => __('WhatsApp Number'),
+                    'class' => 'form-control',
+                ])
+                ?>
+            </div>
         </div>
 
         <legend><?= __('Withdrawal Info') ?></legend>

@@ -181,6 +181,7 @@ class UsersTable extends Table
             ->allowEmptyString('zip')
             ->allowEmptyString('country')
             ->allowEmptyString('phone_number')
+            ->allowEmptyString('whatsapp_number')
             ->allowEmptyString('withdrawal_method')
             ->add('withdrawal_method', 'inList', [
                 'rule' => ['inList', array_column_polyfill(get_withdrawal_methods(), 'id')],
@@ -191,6 +192,16 @@ class UsersTable extends Table
                 return in_array($context['data']['withdrawal_method'], ['wallet', '']);
             }, __('This field should not be blank.'))
             ->equals('accept', 1, __('To use our service you must accept our Terms of Use and Privacy Policy.'));
+    }
+
+    public function validationSignup(Validator $validator)
+    {
+        $validator = $this->validationDefault($validator);
+
+        $validator
+            ->notBlank('whatsapp_number', __('WhatsApp Number is required.'));
+
+        return $validator;
     }
 
     public function validationChangeEmail(Validator $validator)

@@ -30,6 +30,15 @@ $this->Form->control('email', [
 ?>
 
 <?=
+$this->Form->control('whatsapp_number', [
+    'label' => false,
+    'placeholder' => __('WhatsApp Number'),
+    'class' => 'form-control',
+    'required' => true
+])
+?>
+
+<?=
 $this->Form->control('password', [
     'label' => false,
     'placeholder' => __('Password'),

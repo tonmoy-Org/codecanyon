@@ -617,6 +617,19 @@ class UsersController extends AppAdminController
         return true;
     }
 
+    public function activate($id = null)
+    {
+        if ($this->getRequest()->getParam('_csrfToken') !== $this->getRequest()->getQuery('token')) {
+            throw new ForbiddenException();
+        }
+
+        if ($this->statusAction($id, 1)) {
+            $this->Flash->success(__('The user has been activated.'));
+        }
+
+        return $this->redirect($this->referer());
+    }
+
     public function deactivate($id = null)
     {
         if ($this->getRequest()->getParam('_csrfToken') !== $this->getRequest()->getQuery('token')) {

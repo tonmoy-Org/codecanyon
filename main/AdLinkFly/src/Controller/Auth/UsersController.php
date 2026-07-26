@@ -76,7 +76,20 @@ class UsersController extends AppController
 
                 return $this->redirect($this->Auth->redirectUrl());
             }
-            $this->Flash->error(__('Invalid username or password, try again'));
+
+            $username = $this->getRequest()->getData('username');
+            if (!empty($username)) {
+                $dbUser = $this->Users->find()
+                    ->where(['OR' => ['username' => $username, 'email' => $username]])
+                    ->first();
+                if ($dbUser && $dbUser->status == 2) {
+                    $this->Flash->error(__('Your account is pending admin approval. You will be able to log in once it is approved.'));
+                } else {
+                    $this->Flash->error(__('Invalid username or password, try again'));
+                }
+            } else {
+                $this->Flash->error(__('Invalid username or password, try again'));
+            }
         }
     }
 
@@ -220,7 +233,9 @@ class UsersController extends AppController
                 return null;
             }
 
-            $user = $this->Users->patchEntity($user, $this->getRequest()->getData());
+            $user = $this->Users->patchEntity($user, $this->getRequest()->getData(), [
+                'validate' => 'signup'
+            ]);
 
             $referred_by_id = 0;
             if (isset($_COOKIE['ref']) && !empty($_COOKIE['ref'])) {
@@ -242,7 +257,7 @@ class UsersController extends AppController
 
             $user->plan_id = 1;
             $user->role = 'member';
-            $user->status = 1;
+            $user->status = 2; // Always Pending upon signup
             $user->register_ip = get_ip();
 
             $user->publisher_earnings = price_database_format(get_option('signup_bonus', 0));
@@ -260,10 +275,6 @@ class UsersController extends AppController
                 $user->expiration = $expiration;
             }
 
-            if (get_option('account_activate_email', 'yes') == 'yes') {
-                $user->status = 2;
-            }
-
             if ($this->Users->save($user)) {
                 if ((bool)get_option('alert_admin_new_user_register', 0)) {
                     try {
@@ -273,21 +284,7 @@ class UsersController extends AppController
                     }
                 }
 
-                if (get_option('account_activate_email', 'yes') == 'yes') {
-                    // Send activation email
-                    try {
-                        $this->getMailer('User')->send('activation', [$user]);
-                    } catch (\Exception $exception) {
-                        \Cake\Log\Log::write('error', $exception->getMessage());
-                    }
-
-                    $this->Flash->success(__('Your account has been created. Please check your email inbox ' .
-                        'or spam folder to activate your account.'));
-
-                    return $this->redirect(['action' => 'signin']);
-                }
-
-                $this->Flash->success(__('Your account has been created.'));
+                $this->Flash->success(__('Your account has been created and is pending admin approval. You will be able to log in once it is approved.'));
 
                 return $this->redirect(['action' => 'signin']);
             }
