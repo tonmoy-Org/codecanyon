@@ -182,6 +182,10 @@ class UsersTable extends Table
             ->allowEmptyString('country')
             ->allowEmptyString('phone_number')
             ->allowEmptyString('whatsapp_number')
+            ->add('whatsapp_number', 'numeric', [
+                'rule' => 'numeric',
+                'message' => __('WhatsApp Number must be numeric.'),
+            ])
             ->allowEmptyString('withdrawal_method')
             ->add('withdrawal_method', 'inList', [
                 'rule' => ['inList', array_column_polyfill(get_withdrawal_methods(), 'id')],

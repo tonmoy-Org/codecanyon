@@ -92,6 +92,8 @@ $this->assign('content_title', __('Edit User #{0}', $user->id));
         <?=
         $this->Form->control('whatsapp_number', [
             'label' => __('WhatsApp Number'),
+            'type' => 'tel',
+            'oninput' => "this.value = this.value.replace(/[^0-9]/g, '')",
             'class' => 'form-control',
         ])
         ?>

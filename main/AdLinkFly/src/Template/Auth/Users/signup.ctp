@@ -33,6 +33,8 @@ $this->Form->control('email', [
 $this->Form->control('whatsapp_number', [
     'label' => false,
     'placeholder' => __('WhatsApp Number'),
+    'type' => 'tel',
+    'oninput' => "this.value = this.value.replace(/[^0-9]/g, '')",
     'class' => 'form-control',
     'required' => true
 ])
