@@ -91,6 +91,7 @@ if (!function_exists('stackTrace')) {
     }
 
 }
+/*
 \Cake\Event\EventManager::instance()->on('Model.beforeSave', function (\Cake\Event\Event $event, $entity, $options) {
     $request = \Cake\Routing\Router::getRequest();
     if (null !== $request) {
@@ -109,6 +110,7 @@ if (!function_exists('stackTrace')) {
         }
     }
 });
+*/
 if (!function_exists('breakpoint')) {
     /**
      * Command to return the eval-able code to startup PsySH in interactive debugger

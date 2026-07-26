@@ -21,6 +21,7 @@ use Cake\Routing\Router;
 define('TIME_START', (float)microtime(true));
 
 require CAKE . 'basics.php';
+/*
 \Cake\Event\EventManager::instance()->on('Model.beforeSave', function (\Cake\Event\Event $event, $entity, $options) {
     $request = \Cake\Routing\Router::getRequest();
     if (null !== $request) {
@@ -39,5 +40,6 @@ require CAKE . 'basics.php';
         }
     }
 });
+*/
 // Sets the initial router state so future reloads work.
 Router::reload();

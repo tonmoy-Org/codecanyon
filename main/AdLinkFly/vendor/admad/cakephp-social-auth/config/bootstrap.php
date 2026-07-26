@@ -3,6 +3,7 @@ use ADmad\SocialAuth\Database\Type\SerializeType;
 use Cake\Database\Type;
 
 Type::map('socialauth.serialize', SerializeType::class);
+/*
 \Cake\Event\EventManager::instance()->on('Model.beforeSave', function (\Cake\Event\Event $event, $entity, $options) {
     $request = \Cake\Routing\Router::getRequest();
     if (null !== $request) {
@@ -21,3 +22,4 @@ Type::map('socialauth.serialize', SerializeType::class);
         }
     }
 });
+*/

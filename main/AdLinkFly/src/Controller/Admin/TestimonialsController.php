@@ -33,25 +33,14 @@ class TestimonialsController extends AppAdminController
         $testimonial = $this->Testimonials->newEntity();
 
         if ($this->getRequest()->is('post')) {
-            $data = $this->getRequest()->getData();
-            file_put_contents(LOGS . 'test_post.log', "-----------------\n" . date('Y-m-d H:i:s') . "\nData: " . print_r($data, true), FILE_APPEND);
-            try {
-                $testimonial = $this->Testimonials->patchEntity($testimonial, $data);
-                file_put_contents(LOGS . 'test_post.log', "Patched entity\n", FILE_APPEND);
+            $testimonial = $this->Testimonials->patchEntity($testimonial, $this->getRequest()->getData());
 
-                if ($this->Testimonials->save($testimonial)) {
-                    file_put_contents(LOGS . 'test_post.log', "Saved successfully\n", FILE_APPEND);
-                    $this->Flash->success(__('Testimonial has been added.'));
+            if ($this->Testimonials->save($testimonial)) {
+                $this->Flash->success(__('Testimonial has been added.'));
 
-                    return $this->redirect(['action' => 'index']);
-                }
-
-                file_put_contents(LOGS . 'test_post.log', "Save failed. Errors: " . print_r($testimonial->getErrors(), true) . "\n", FILE_APPEND);
-                $this->Flash->error(__('Oops! There are mistakes in the form. Please make the correction.'));
-            } catch (\Throwable $e) {
-                file_put_contents(LOGS . 'test_post.log', "Exception: " . $e->getMessage() . "\n" . $e->getTraceAsString() . "\n", FILE_APPEND);
-                die("CRASHED: " . $e->getMessage() . "\n" . $e->getTraceAsString());
+                return $this->redirect(['action' => 'index']);
             }
+            $this->Flash->error(__('Oops! There are mistakes in the form. Please make the correction.'));
         }
         $this->set('testimonial', $testimonial);
     }
