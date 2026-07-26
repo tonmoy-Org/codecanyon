@@ -74,6 +74,11 @@ class AppAdminController extends AppController
             return true;
         }
 
+        // Only check default campaigns when earning_mode is 'campaign'
+        if (get_option('earning_mode', 'campaign') !== 'campaign') {
+            return true;
+        }
+
         $Campaigns = TableRegistry::getTableLocator()->get('Campaigns');
         $interstitial_campaigns = $Campaigns->find()
             ->where([
