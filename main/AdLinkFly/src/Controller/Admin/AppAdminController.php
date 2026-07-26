@@ -70,6 +70,38 @@ class AppAdminController extends AppController
 
     protected function checkDefaultCampaigns()
     {
-        return true;
+        if (require_database_upgrade()) {
+            return true;
+        }
+
+        // Only check default campaigns when earning_mode is 'campaign'
+        if (get_option('earning_mode', 'campaign') !== 'campaign') {
+            return true;
+        }
+
+        $Campaigns = TableRegistry::getTableLocator()->get('Campaigns');
+        $interstitial_campaigns = $Campaigns->find()
+            ->where([
+                'default_campaign' => 1,
+                'ad_type' => 1,
+                'status' => 1,
+            ])
+            ->count();
+
+        if ($interstitial_campaigns == 0) {
+            $this->Flash->error(__('You must have at least one interstitial campaign marked as default.'));
+        }
+
+        $banner_campaigns = $Campaigns->find()
+            ->where([
+                'default_campaign' => 1,
+                'ad_type' => 2,
+                'status' => 1,
+            ])
+            ->count();
+
+        if ($banner_campaigns == 0) {
+            $this->Flash->error(__('You must have at least one banner campaign marked as default.'));
+        }
     }
 }
