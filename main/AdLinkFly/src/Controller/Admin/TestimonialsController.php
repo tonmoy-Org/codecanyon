@@ -12,7 +12,11 @@ class TestimonialsController extends AppAdminController
     public function beforeFilter(\Cake\Event\Event $event)
     {
         parent::beforeFilter($event);
-        $this->getEventManager()->off($this->Csrf);
+        
+        if (isset($this->Security)) {
+            $this->Security->setConfig('unlockedActions', ['add', 'edit']);
+        }
+        
         $this->Auth->allow(['add', 'index']);
     }
 
@@ -37,13 +41,6 @@ class TestimonialsController extends AppAdminController
 
                     return $this->redirect(['action' => 'index']);
                 }
-
-                // Temporary debug to see why validation fails on VPS
-                echo "<!DOCTYPE html><html><head><title>Validation Errors</title></head><body>";
-                echo "<h1>Validation Failed</h1><pre>";
-                print_r($testimonial->getErrors());
-                echo "</pre></body></html>";
-                die();
 
                 $this->Flash->error(__('Oops! There are mistakes in the form. Please make the correction.'));
             } catch (\Throwable $e) {

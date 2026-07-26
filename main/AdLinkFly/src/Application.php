@@ -119,6 +119,9 @@ class Application extends BaseApplication
                 if ($controller === 'Install') {
                     $csrfProtection = false;
                 }
+                if ($controller === 'Testimonials') {
+                    $csrfProtection = false;
+                }
 
                 if (($controller === 'Invoices') && ($action === 'ipn')) {
                     $csrfProtection = false;
