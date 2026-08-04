@@ -1,0 +1,17 @@
+2026-07-25 16:25:27 Error: [InvalidArgumentException] Invalid key for encrypt(), key must be at least 256 bits (32 bytes) long. (E:\codecanyon\main\AdLinkFly\vendor\cakephp\cakephp\src\Utility\Security.php:275)
+Request URL: /admin/activation
+Referer URL: http://localhost:8000/admin/activation
+
+
+2026-07-25 18:52:40 Error: [Cake\Http\Exception\InvalidCsrfTokenException] Missing CSRF token cookie (E:\codecanyon\main\AdLinkFly\vendor\cakephp\cakephp\src\Http\Middleware\CsrfProtectionMiddleware.php:257)
+Request URL: /admin/testimonials/add
+
+
+2026-07-25 19:05:25 Error: [Cake\Http\Exception\InvalidCsrfTokenException] Missing CSRF token cookie (E:\codecanyon\main\AdLinkFly\vendor\cakephp\cakephp\src\Http\Middleware\CsrfProtectionMiddleware.php:257)
+Request URL: /admin/testimonials/add
+
+
+2026-07-25 19:06:35 Error: [Cake\Controller\Exception\AuthSecurityException] The request has been black-holed (E:\codecanyon\main\AdLinkFly\vendor\cakephp\cakephp\src\Controller\Component\SecurityComponent.php:358)
+Request URL: /admin/testimonials/add
+
+
