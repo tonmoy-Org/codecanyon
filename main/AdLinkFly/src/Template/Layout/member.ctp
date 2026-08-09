@@ -93,7 +93,7 @@
                             'controller' => 'Withdraws',
                             'action' => 'index',
                             'prefix' => 'member',
-                        ]); ?>">
+                        ]); ?>" style="font-size: 16px; font-weight: bold;">
                             <span
                                 class="hidden-xs"><?= __('Available Balance') ?>: </span><?= display_price_currency($logged_user->publisher_earnings + $logged_user->referral_earnings); ?>
                         </a>
@@ -184,7 +184,7 @@
                 <?php if ((bool)get_option('wallet_enable')) : ?>
                     <li>
                         <a><i class="fa fa-credit-card text-aqua"></i>
-                            <span><b><?= __("Money Wallet") ?></b><br>
+                            <span style="font-size: 16px; font-weight: bold;"><b><?= __("Money Wallet") ?></b><br>
                                 <?= display_price_currency($logged_user->wallet_money) ?>
                             </span>
                         </a>
