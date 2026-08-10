@@ -184,7 +184,7 @@
                 <?php if ((bool)get_option('wallet_enable')) : ?>
                     <li>
                         <a><i class="fa fa-credit-card text-aqua"></i>
-                            <span style="font-size: 14px; font-weight: bold;"><b><?= __("Money Wallet") ?></b><br>
+                            <span style="font-size: 24px; font-weight: bold; line-height: 1.2; display: inline-block; padding-top: 5px;"><b><?= __("Money Wallet") ?></b><br>
                                 <span style="font-size: 20px;"><?= display_price_currency($logged_user->wallet_money) ?></span>
                             </span>
                         </a>
