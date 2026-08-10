@@ -68,6 +68,11 @@ img {
     .navbar-nav > li > a {
         font-size: 12px;
     }
+    .navbar-nav > li > a.balance-link {
+        font-size: 20px !important;
+        font-weight: bold !important;
+        line-height: 50px;
+    }
 }
 
 @media only screen and (min-width: 768px) {

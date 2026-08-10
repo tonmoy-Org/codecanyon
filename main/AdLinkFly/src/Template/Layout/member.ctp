@@ -93,7 +93,7 @@
                             'controller' => 'Withdraws',
                             'action' => 'index',
                             'prefix' => 'member',
-                        ]); ?>" style="font-size: 20px; font-weight: bold;">
+                        ]); ?>" class="balance-link">
                             <span
                                 class="hidden-xs"><?= __('Available Balance') ?>: </span><?= display_price_currency($logged_user->publisher_earnings + $logged_user->referral_earnings); ?>
                         </a>
