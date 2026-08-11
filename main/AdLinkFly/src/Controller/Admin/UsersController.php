@@ -237,6 +237,7 @@ class UsersController extends AppAdminController
             'username',
             'email',
             'phone_number',
+            'mobile',
             'country',
             'login_ip',
             'register_ip',
@@ -270,7 +271,7 @@ class UsersController extends AppAdminController
             foreach ($this->getRequest()->getQuery() as $param_name => $value) {
                 $value = urldecode($value);
                 if (in_array($param_name, $filter_fields)) {
-                    if (in_array($param_name, ['username', 'email', 'phone_number'])) {
+                    if (in_array($param_name, ['username', 'email', 'phone_number', 'mobile'])) {
                         $conditions[] = [
                             ['Users.' . $param_name . ' LIKE' => '%' . $value . '%'],
                         ];

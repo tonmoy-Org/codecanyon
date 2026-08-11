@@ -102,6 +102,15 @@ $statuses = [
         ?>
 
         <?=
+        $this->Form->control('Filter.mobile', [
+            'label' => false,
+            'class' => 'form-control',
+            'type' => 'text',
+            'placeholder' => __('Mobile Number'),
+        ]);
+        ?>
+
+        <?=
         $this->Form->control('Filter.country', [
             'label' => false,
             'class' => 'form-control',
@@ -167,6 +176,7 @@ $statuses = [
                     <th><?= __('Expiration') ?></th>
                     <th><?= $this->Paginator->sort('disable_earnings', __('Disable Earnings')); ?></th>
                     <th><?= $this->Paginator->sort('email', __('Email')); ?></th>
+                    <th><?= $this->Paginator->sort('mobile', __('Mobile Number')); ?></th>
                     <th><?= $this->Paginator->sort('phone_number', __('WhatsApp')); ?></th>
                     <th><?= $this->Paginator->sort('login_ip', __('Login IP')); ?></th>
                     <th><?= $this->Paginator->sort('register_ip', __('Register IP')); ?></th>
@@ -220,6 +230,7 @@ $statuses = [
                         <td><?= display_date_timezone($user->expiration); ?></td>
                         <td><?= $yes_no[$user->disable_earnings]; ?></td>
                         <td><?= $user->email; ?></td>
+                        <td><?= h($user->mobile); ?></td>
                         <td><?= h($user->phone_number); ?></td>
                         <td><?= $user->login_ip; ?></td>
                         <td><?= $user->register_ip; ?></td>
