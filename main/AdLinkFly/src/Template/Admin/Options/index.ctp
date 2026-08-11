@@ -2378,6 +2378,28 @@ $this->assign('content_title', __('Settings'));
 <?= $this->Form->button(__('Save'), ['name' => 'save_settings', 'class' => 'btn btn-primary']); ?>
 <?= $this->Form->end(); ?>
 
+<hr>
+
+<div class="box box-primary">
+    <div class="box-header with-border">
+        <h3 class="box-title"><?= __('Send Test SMS') ?></h3>
+    </div>
+    <div class="box-body">
+        <?= $this->Form->create(null, ['url' => ['action' => 'testSms'], 'class' => 'form-inline']); ?>
+        <div class="form-group">
+            <?= $this->Form->control('mobile', [
+                'label' => false,
+                'placeholder' => __('Enter Mobile Number'),
+                'class' => 'form-control',
+                'type' => 'tel',
+                'required' => true,
+            ]); ?>
+        </div>
+        <?= $this->Form->button(__('Send Test SMS'), ['class' => 'btn btn-success']); ?>
+        <?= $this->Form->end(); ?>
+    </div>
+</div>
+
 <?php $this->start('scriptBottom'); ?>
 <script>
     $('.conditional').conditionize();

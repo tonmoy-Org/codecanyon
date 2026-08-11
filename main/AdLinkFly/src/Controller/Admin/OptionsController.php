@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use Cake\Event\Event;
 use Cake\Http\Exception\NotFoundException;
+use App\Utility\SmsGateway;
 use Cake\ORM\TableRegistry;
 
 /**
@@ -505,5 +506,26 @@ class OptionsController extends AppAdminController
     public function system()
     {
         $this->viewBuilder()->setLayout('blank');
+    }
+
+    public function testSms()
+    {
+        $this->autoRender = false;
+        
+        if ($this->getRequest()->is(['post', 'put'])) {
+            $mobile = $this->getRequest()->getData('mobile');
+            if ($mobile) {
+                try {
+                    $response = SmsGateway::send($mobile, "This is a test SMS from AdLinkFly.");
+                    $this->Flash->success(__('Test SMS sent successfully. Response: ') . h(json_encode($response)));
+                } catch (\Exception $e) {
+                    $this->Flash->error(__('Failed to send Test SMS. Error: ') . h($e->getMessage()));
+                }
+            } else {
+                $this->Flash->error(__('Mobile number is required.'));
+            }
+        }
+        
+        return $this->redirect(['action' => 'index', '#' => 'sms_config']);
     }
 }
