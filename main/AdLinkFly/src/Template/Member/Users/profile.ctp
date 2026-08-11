@@ -29,6 +29,17 @@ $this->assign('content_title', __('Profile'));
             </div>
             <div class="col-sm-6">
                 <?=
+                $this->Form->control('phone_number', [
+                    'label' => __('WhatsApp'),
+                    'class' => 'form-control',
+                ])
+                ?>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <?=
                 $this->Form->control('email', [
                     'label' => __('Email Address'),
                     'class' => 'form-control',
@@ -118,16 +129,7 @@ $this->assign('content_title', __('Profile'));
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-sm-12">
-                <?=
-                $this->Form->control('phone_number', [
-                    'label' => __('WhatsApp'),
-                    'class' => 'form-control',
-                ])
-                ?>
-            </div>
-        </div>
+
 
         <legend><?= __('Withdrawal Info') ?></legend>
 
