@@ -298,7 +298,7 @@
                     </li>
                 <?php endif; ?>
 
-                <?php if (
+                <?php /* if (
                     (bool)get_option('enable_premium_membership') ||
                     get_option('earning_mode', 'campaign') === 'campaign'
                 ) : ?>
@@ -307,7 +307,7 @@
                             <i class="fa fa-credit-card"></i> <span><?= __('Invoices') ?></span>
                         </a>
                     </li>
-                <?php endif; ?>
+                <?php endif; */ ?>
 
                 <li class="treeview">
                     <a href="#"><i class="fa fa-gears"></i> <span><?= __('Settings') ?></span> <i
