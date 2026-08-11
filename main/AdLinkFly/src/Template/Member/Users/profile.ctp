@@ -122,7 +122,7 @@ $this->assign('content_title', __('Profile'));
             <div class="col-sm-12">
                 <?=
                 $this->Form->control('phone_number', [
-                    'label' => __('Phone Number'),
+                    'label' => __('WhatsApp'),
                     'class' => 'form-control',
                 ])
                 ?>
