@@ -95,7 +95,7 @@
                             'prefix' => 'member',
                         ]); ?>" class="balance-link" style="font-size: 18px !important; font-weight: bold !important;">
                             <span
-                                class="hidden-xs"><?= __('Available Balance') ?>: </span><?= display_price_currency($logged_user->publisher_earnings + $logged_user->referral_earnings); ?>
+                                class="hidden-xs"><?= __('Account Balance') ?>: </span><?= display_price_currency($logged_user->publisher_earnings + $logged_user->referral_earnings); ?>
                         </a>
                     </li>
 
@@ -184,7 +184,7 @@
                 <?php if ((bool)get_option('wallet_enable')) : ?>
                     <li>
                         <a><i class="fa fa-credit-card text-aqua"></i>
-                            <span style="font-size: 24px; font-weight: bold; line-height: 1.2; display: inline-block; padding-top: 5px;"><b><?= __("Money Wallet") ?></b><br>
+                            <span style="font-size: 24px; font-weight: bold; line-height: 1.2; display: inline-block; padding-top: 5px;"><b><?= __("Reward Wallet") ?></b><br>
                                 <span style="font-size: 20px;"><?= display_price_currency($logged_user->wallet_money) ?></span>
                             </span>
                         </a>
