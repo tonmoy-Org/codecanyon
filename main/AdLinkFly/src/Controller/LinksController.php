@@ -380,20 +380,20 @@ class LinksController extends FrontController
 
     protected function setRefererCookie($alias)
     {
-        if (isset($_COOKIE['ref' . $alias])) {
+        if (isset($_COOKIE['ref' . md5($alias)])) {
             return;
         }
 
         $referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
 
-        \setcookie('ref' . $alias, \data_encrypt($referer), \time() + 5 * 60, '/', '', false, true);
+        \setcookie('ref' . md5($alias), \data_encrypt($referer), \time() + 5 * 60, '/', '', false, true);
     }
 
     protected function getRefererCookie($alias)
     {
         $referer_url = '';
-        if (isset($_COOKIE['ref' . $alias])) {
-            $referer_url = \data_decrypt($_COOKIE['ref' . $alias]);
+        if (isset($_COOKIE['ref' . md5($alias)])) {
+            $referer_url = \data_decrypt($_COOKIE['ref' . md5($alias)]);
         }
 
         return $referer_url;
