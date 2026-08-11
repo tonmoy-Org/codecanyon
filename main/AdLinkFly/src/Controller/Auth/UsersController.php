@@ -286,7 +286,8 @@ class UsersController extends AppController
 
             if ($this->Users->save($user)) {
                 if (get_option('sms_verification_enabled', 'no') === 'yes') {
-                    SmsGateway::send($user->mobile, "Your verification code is: " . $user->sms_code);
+                    $smsBody = "**DragonLinkAds Verification**\n\nYour phone verification code is **" . $user->sms_code . "**.\n\nEnter this code to verify your phone. Do not share it.";
+                    SmsGateway::send($user->mobile, $smsBody);
                     
                     $this->getRequest()->getSession()->write('sms_verify_user', $user->id);
                     $this->Flash->success(__('Please enter the verification code sent to your mobile.'));
@@ -504,7 +505,8 @@ class UsersController extends AppController
         if ($user && $user->status == 3) {
             $user->sms_code = rand(100000, 999999);
             if ($this->Users->save($user)) {
-                SmsGateway::send($user->mobile, "Your new verification code is: " . $user->sms_code);
+                $smsBody = "**DragonLinkAds Verification**\n\nYour phone verification code is **" . $user->sms_code . "**.\n\nEnter this code to verify your phone. Do not share it.";
+                SmsGateway::send($user->mobile, $smsBody);
                 $this->Flash->success(__('A new verification code has been sent to your mobile.'));
             }
         }
