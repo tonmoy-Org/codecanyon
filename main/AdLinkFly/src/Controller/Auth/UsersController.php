@@ -454,6 +454,8 @@ class UsersController extends AppController
 
             $this->set('user', $user);
         }
+    }
+
     public function smsVerify()
     {
         $userId = $this->getRequest()->getSession()->read('sms_verify_user');
