@@ -16,7 +16,7 @@ $this->assign('description', __('Sign in to start your session'));
 <?=
 $this->Form->control('username', [
     'label' => false,
-    'placeholder' => __('Username or email address'),
+    'placeholder' => __('Username, Email, or Mobile'),
     'class' => 'form-control',
 ])
 ?>

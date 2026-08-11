@@ -22,10 +22,12 @@ $this->Form->control('username', [
 ?>
 
 <?=
-$this->Form->control('email', [
+$this->Form->control('mobile', [
     'label' => false,
-    'placeholder' => __('Email'),
-    'class' => 'form-control'
+    'placeholder' => __('Mobile Number'),
+    'type' => 'tel',
+    'class' => 'form-control',
+    'required' => true
 ])
 ?>
 

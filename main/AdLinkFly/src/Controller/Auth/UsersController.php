@@ -3,6 +3,7 @@
 namespace App\Controller\Auth;
 
 use App\Controller\AppController;
+use App\Utility\SmsGateway;
 use Cake\Event\Event;
 use Cake\Mailer\MailerAwareTrait;
 use Cake\I18n\Time;
@@ -30,7 +31,7 @@ class UsersController extends AppController
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
-        $this->Auth->allow(['multidomainsAuth', 'authDone', 'signup', 'logout', 'activateAccount', 'forgotPassword']);
+        $this->Auth->allow(['multidomainsAuth', 'authDone', 'signup', 'logout', 'activateAccount', 'forgotPassword', 'smsVerify', 'smsResend']);
         $this->viewBuilder()->setLayout('auth');
     }
 
@@ -257,7 +258,15 @@ class UsersController extends AppController
 
             $user->plan_id = 1;
             $user->role = 'member';
-            $user->status = 2; // Always Pending upon signup
+
+            // Custom SMS OTP Logic
+            if (get_option('sms_verification_enabled', 'no') === 'yes') {
+                $user->status = 3; // Pending SMS Verification
+                $user->sms_code = rand(100000, 999999);
+            } else {
+                $user->status = 2; // Always Pending upon signup (admin approval)
+            }
+            
             $user->register_ip = get_ip();
 
             $user->publisher_earnings = price_database_format(get_option('signup_bonus', 0));
@@ -276,6 +285,14 @@ class UsersController extends AppController
             }
 
             if ($this->Users->save($user)) {
+                if (get_option('sms_verification_enabled', 'no') === 'yes') {
+                    SmsGateway::send($user->mobile, "Your verification code is: " . $user->sms_code);
+                    
+                    $this->getRequest()->getSession()->write('sms_verify_user', $user->id);
+                    $this->Flash->success(__('Please enter the verification code sent to your mobile.'));
+                    return $this->redirect(['action' => 'smsVerify']);
+                }
+
                 if ((bool)get_option('alert_admin_new_user_register', 0)) {
                     try {
                         $this->getMailer('Notification')->send('newRegistration', [$user]);
@@ -437,5 +454,60 @@ class UsersController extends AppController
 
             $this->set('user', $user);
         }
+    public function smsVerify()
+    {
+        $userId = $this->getRequest()->getSession()->read('sms_verify_user');
+        
+        if (!$userId) {
+            return $this->redirect(['action' => 'signin']);
+        }
+
+        /** @var \App\Model\Entity\User $user */
+        $user = $this->Users->findById($userId)->first();
+        if (!$user) {
+            return $this->redirect(['action' => 'signin']);
+        }
+        
+        $this->set('user', $user);
+
+        if ($this->getRequest()->is('post')) {
+            $code = $this->getRequest()->getData('sms_code');
+
+            if ($user->sms_code && $code === $user->sms_code) {
+                // Verify
+                $user->status = 1; // Active
+                $user->mobile_verified_at = Time::now();
+                $user->sms_code = null;
+                
+                if ($this->Users->save($user)) {
+                    $this->getRequest()->getSession()->delete('sms_verify_user');
+                    $this->Flash->success(__('Your mobile number has been verified successfully. You can now login.'));
+                    return $this->redirect(['action' => 'signin']);
+                }
+            }
+            
+            $this->Flash->error(__('Invalid verification code. Please try again.'));
+        }
+    }
+
+    public function smsResend()
+    {
+        $userId = $this->getRequest()->getSession()->read('sms_verify_user');
+        
+        if (!$userId) {
+            return $this->redirect(['action' => 'signin']);
+        }
+
+        $user = $this->Users->findById($userId)->first();
+        if ($user && $user->status == 3) {
+            $user->sms_code = rand(100000, 999999);
+            if ($this->Users->save($user)) {
+                SmsGateway::send($user->mobile, "Your new verification code is: " . $user->sms_code);
+                $this->Flash->success(__('A new verification code has been sent to your mobile.'));
+            }
+        }
+        
+        return $this->redirect(['action' => 'smsVerify']);
     }
 }
+

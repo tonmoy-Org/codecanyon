@@ -72,6 +72,7 @@ class UsersTable extends Table
                     'OR' => [
                         ['Users.username' => $options['username']],
                         ['Users.email' => $options['username']],
+                        ['Users.mobile' => $options['username']],
                     ],
                 ],
                 [],
@@ -155,7 +156,15 @@ class UsersTable extends Table
                 },
                 'message' => __('Not the same'),
             ])
-            ->notBlank('email', 'An email is required')
+            ->notBlank('mobile', 'A mobile number is required')
+            ->add('mobile', [
+                'unique' => [
+                    'rule' => 'validateUnique',
+                    'provider' => 'table',
+                    'message' => __('Mobile number already exists'),
+                ],
+            ])
+            ->allowEmptyString('email')
             ->add('email', 'validFormat', [
                 'rule' => 'email',
                 'message' => __('E-mail must be valid'),
@@ -166,12 +175,6 @@ class UsersTable extends Table
                     'provider' => 'table',
                     'message' => __('E-mail must be unique'),
                 ],
-            ])
-            ->add('email_compare', 'custom_email_compare', [
-                'rule' => function ($value, $context) {
-                    return ($value === $context['data']['email']);
-                },
-                'message' => __('Not the same'),
             ])
             ->allowEmptyString('first_name')
             ->allowEmptyString('last_name')

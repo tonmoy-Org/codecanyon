@@ -45,6 +45,13 @@ $this->assign('content_title', __('Add User'));
         ?>
 
         <?=
+        $this->Form->control('mobile', [
+            'label' => __('Mobile Number'),
+            'class' => 'form-control',
+        ])
+        ?>
+
+        <?=
         $this->Form->control('email', [
             'label' => __('Email'),
             'type' => 'email',

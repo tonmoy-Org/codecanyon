@@ -17,6 +17,27 @@ $this->assign('content_title', __('Profile'));
 
         <?= $this->Form->hidden('id'); ?>
 
+        <div class="row">
+            <div class="col-sm-6">
+                <?=
+                $this->Form->control('mobile', [
+                    'label' => __('Mobile Number'),
+                    'class' => 'form-control',
+                    'readonly' => true,
+                ])
+                ?>
+            </div>
+            <div class="col-sm-6">
+                <?=
+                $this->Form->control('email', [
+                    'label' => __('Email Address'),
+                    'class' => 'form-control',
+                    'type' => 'email',
+                ])
+                ?>
+            </div>
+        </div>
+
         <legend><?= __('Billing Address') ?></legend>
 
         <div class="row">

@@ -231,7 +231,9 @@ class UsersController extends AppMemberController
         $user = $this->Users->find()->contain(['Plans'])->where(['Users.id' => $this->Auth->user('id')])->first();
 
         if ($this->getRequest()->is(['post', 'put'])) {
-            $user = $this->Users->patchEntity($user, $this->getRequest()->data);
+            $data = $this->getRequest()->getData();
+            unset($data['mobile']); // prevent modifying mobile
+            $user = $this->Users->patchEntity($user, $data);
             //debug($user->errors());
             if ($this->Users->save($user)) {
                 if ($this->Auth->user('id') === $user->id) {

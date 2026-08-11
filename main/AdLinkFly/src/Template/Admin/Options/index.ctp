@@ -45,6 +45,8 @@ $this->assign('content_title', __('Settings'));
                                    data-toggle="tab"><?= __('Blog') ?></a></li>
         <li role="presentation"><a href="#social" aria-controls="Social Media" role="tab"
                                    data-toggle="tab"><?= __('Social Media') ?></a></li>
+        <li role="presentation"><a href="#sms_config" aria-controls="SMS Config" role="tab"
+                                   data-toggle="tab"><?= __('SMS Config') ?></a></li>
         <li role="presentation"><a href="#cronjob" aria-controls="Cron Job" role="tab"
                                    data-toggle="tab"><?= __('Cron Job') ?></a></li>
     </ul>
@@ -2309,8 +2311,67 @@ $this->assign('content_title', __('Settings'));
 
 
         </div>
+        
+        <div role="tabpanel" id="sms_config" class="tab-pane fade">
+            <div class="row">
+                <div class="col-sm-2"><?= __('Enable SMS Verification') ?></div>
+                <div class="col-sm-10">
+                    <?=
+                    $this->Form->control('Options.' . $settings['sms_verification_enabled']['id'] . '.value', [
+                        'label' => false,
+                        'options' => [
+                            'yes' => __('Yes'),
+                            'no' => __('No'),
+                        ],
+                        'value' => $settings['sms_verification_enabled']['value'],
+                        'class' => 'form-control',
+                    ]);
+                    ?>
+                </div>
+            </div>
+            
+            <div class="row conditional" data-condition="Options.<?= $settings['sms_verification_enabled']['id'] ?>.value === 'yes'">
+                <div class="col-sm-2"><?= __('Revesms API Key') ?></div>
+                <div class="col-sm-10">
+                    <?=
+                    $this->Form->control('Options.' . $settings['sms_revesms_api_key']['id'] . '.value', [
+                        'label' => false,
+                        'class' => 'form-control',
+                        'type' => 'text',
+                        'value' => $settings['sms_revesms_api_key']['value'],
+                    ]);
+                    ?>
+                </div>
+            </div>
 
-    </div>
+            <div class="row conditional" data-condition="Options.<?= $settings['sms_verification_enabled']['id'] ?>.value === 'yes'">
+                <div class="col-sm-2"><?= __('Revesms Secret Key') ?></div>
+                <div class="col-sm-10">
+                    <?=
+                    $this->Form->control('Options.' . $settings['sms_revesms_secret_key']['id'] . '.value', [
+                        'label' => false,
+                        'class' => 'form-control',
+                        'type' => 'text',
+                        'value' => $settings['sms_revesms_secret_key']['value'],
+                    ]);
+                    ?>
+                </div>
+            </div>
+
+            <div class="row conditional" data-condition="Options.<?= $settings['sms_verification_enabled']['id'] ?>.value === 'yes'">
+                <div class="col-sm-2"><?= __('Revesms Caller ID') ?></div>
+                <div class="col-sm-10">
+                    <?=
+                    $this->Form->control('Options.' . $settings['sms_revesms_caller_id']['id'] . '.value', [
+                        'label' => false,
+                        'class' => 'form-control',
+                        'type' => 'text',
+                        'value' => $settings['sms_revesms_caller_id']['value'],
+                    ]);
+                    ?>
+                </div>
+            </div>
+        </div>
 
 </div>
 
