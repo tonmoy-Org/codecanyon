@@ -184,11 +184,7 @@ class UsersTable extends Table
             ->allowEmptyString('zip')
             ->allowEmptyString('country')
             ->allowEmptyString('phone_number')
-            ->allowEmptyString('whatsapp_number')
-            ->add('whatsapp_number', 'numeric', [
-                'rule' => 'numeric',
-                'message' => __('WhatsApp Number must be numeric.'),
-            ])
+
             ->allowEmptyString('withdrawal_method')
             ->add('withdrawal_method', 'inList', [
                 'rule' => ['inList', array_column_polyfill(get_withdrawal_methods(), 'id')],
@@ -204,9 +200,6 @@ class UsersTable extends Table
     public function validationSignup(Validator $validator)
     {
         $validator = $this->validationDefault($validator);
-
-        $validator
-            ->notBlank('whatsapp_number', __('WhatsApp Number is required.'));
 
         return $validator;
     }

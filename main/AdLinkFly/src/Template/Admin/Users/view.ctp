@@ -219,10 +219,7 @@ $withdrawal_methods = array_column_polyfill(get_withdrawal_methods(), 'name', 'i
                                     <td><?= __('Phone Number') ?></td>
                                     <td><?= h($user->phone_number) ?></td>
                                 </tr>
-                                <tr>
-                                    <td><?= __('WhatsApp Number') ?></td>
-                                    <td><?= h($user->whatsapp_number) ?></td>
-                                </tr>
+
                             </table>
                         </div>
                     </div>
