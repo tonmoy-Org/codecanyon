@@ -236,6 +236,7 @@ class UsersController extends AppAdminController
             'disable_earnings',
             'username',
             'email',
+            'phone_number',
             'country',
             'login_ip',
             'register_ip',
@@ -269,7 +270,7 @@ class UsersController extends AppAdminController
             foreach ($this->getRequest()->getQuery() as $param_name => $value) {
                 $value = urldecode($value);
                 if (in_array($param_name, $filter_fields)) {
-                    if (in_array($param_name, ['username', 'email'])) {
+                    if (in_array($param_name, ['username', 'email', 'phone_number'])) {
                         $conditions[] = [
                             ['Users.' . $param_name . ' LIKE' => '%' . $value . '%'],
                         ];
