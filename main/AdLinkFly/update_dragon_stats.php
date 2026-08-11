@@ -34,9 +34,9 @@ $publisher_earn_per_view = $targetBalance / $targetViews; // ~0.0026235025
 
 echo "Inserting $targetViews views in batches of $batchSize...\n";
 
-// Dates range: July 1 to August 11, 2026
-$startDate = strtotime('2026-07-01');
-$endDate = strtotime('2026-08-11');
+// Dates range: August 1 to August 12, 2026
+$startDate = strtotime('2026-08-01');
+$endDate = strtotime('2026-08-12');
 
 $pdo->beginTransaction();
 
